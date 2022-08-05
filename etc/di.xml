@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Model\ResourceModel\Order">
+        <plugin name="Perspective_FollowUpMessages::order_entity_save"
+                type="Perspective\FollowUpMessages\Plugin\Order\Entity\Save"/>
+    </type>
+    <type name="Perspective\FollowUpMessages\Helper\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">notificationsLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Perspective\FollowUpMessages\Helper\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Perspective\FollowUpMessages\Helper\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <preference for="Perspective\FollowUpMessages\Api\Data\FollowUpSentIndexInterface"
+                type="Perspective\FollowUpMessages\Model\FollowUpSentIndex"/>
+    <preference for="Perspective\FollowUpMessages\Api\Data\FollowUpSentResultInterface"
+                type="Magento\Framework\Api\SearchResults" />
+    <preference for="Perspective\FollowUpMessages\Api\FollowUpSentRepositoryInterface"
+                type="Perspective\FollowUpMessages\Model\Repository\FollowUpSentRepository" />
+    <type name="Perspective\FollowUpMessages\Service\ProductsAggregator">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="two_products" xsi:type="array">
+                    <item name="sort_order" xsi:type="string">100</item>
+                    <item name="class" xsi:type="object">Perspective\FollowUpMessages\Service\Aggregate\TwoProducts</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

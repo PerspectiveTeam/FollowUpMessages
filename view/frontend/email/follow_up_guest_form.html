@@ -1,0 +1,14 @@
+<!--@subject {{trans "Follow up form guest"}} @-->
+<!--@vars {
+"var data.email":"Sender Email",
+"var data.name":"Sender Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+<div class="follow-up-details">
+    <span>content goes here</span>
+</div>
+{{layout handle="sales_email_order_items" order=$order follow_up_messages=$follow_up_messages area="frontend"}}
+{{layout handle="sales_email_order_address_followup" order=$order follow_up_messages=$follow_up_messages area="frontend"}}
+
+{{template config_path="design/email/footer_template"}}

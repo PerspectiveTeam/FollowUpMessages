@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order_status_followup_sent_index">
+        <column xsi:type="int"
+                name="id"
+                unsigned="true"
+                nullable="false"
+                identity="true"
+                comment="ID"/>
+        <column xsi:type="int"
+                name="order_id"
+                nullable="false"
+                comment="Order id for follow-up messages"/>
+        <column xsi:type="int"
+                name="customer_id"
+                nullable="false"
+                comment="Customer id"/>
+        <column xsi:type="varchar"
+                name="product_sku"
+                length="255"
+                nullable="false"
+                comment="Product skus for excluding"/>
+        <column xsi:type="boolean"
+                name="product_sent"
+                nullable="false"
+                default="false"
+                comment="Is product sent to customer"/>
+        <column xsi:type="bigint" name="timestamp_to_send" nullable="false"
+                comment="Time to postpone"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true"
+                comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="SALES_ORDER_STATUS_FOLLOWUP_SENT_INDEX_UNIQUE_CUSTOMER_ID_AND_PRODUCT_SKU_COLUMNS">
+            <column name="customer_id"/>
+            <column name="product_sku"/>
+        </constraint>
+    </table>
+</schema>
